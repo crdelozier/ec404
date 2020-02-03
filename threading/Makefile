@@ -3,10 +3,10 @@ all: generate threads
 CXX=g++
 CXXFLAGS=-std=c++11
 
-generate:
+generate: generate.cpp
 	$(CXX) $(CXXFLAGS) -g -o generate generate.cpp
 
-threads:
+threads: threads.cpp
 	$(CXX) $(CXXFLAGS) -g -o threads threads.cpp
 
 clean:
