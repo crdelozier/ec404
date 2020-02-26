@@ -15,13 +15,9 @@ void updateCount(int N){
 int main(){
   thread t1(updateCount,ITERS);
   thread t2(updateCount,ITERS);
-  thread t3(updateCount,ITERS);
-  thread t4(updateCount,ITERS);
 
   t1.join();
   t2.join();
-  t3.join();
-  t4.join();
 
   cout << g_counter << "\n";
   
