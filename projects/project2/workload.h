@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 class Process;
@@ -20,9 +21,10 @@ public:
   virtual void init();
 };
 
-/*
+
 class FileWorkload : public Workload{
+  std::string fileName;
 public:
+  FileWorkload(std::string _fileName);
   virtual void init();
 };
-*/

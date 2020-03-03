@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 #include "process.h"
 #include "scheduler.h"
@@ -21,19 +22,14 @@ int main(int argc, char **argv){
   
   if(scheduler.compare("FCFS") == 0){
     sched = new FCFS();
-  }
-  /*
   }else if(scheduler.compare("SJF") == 0){
     sched = new SJF();
   }else if(scheduler.compare("RR") == 0){
     sched = new RR();
-  }else if(scheduler.compare("Mine") == 0){
-    sched = new Mine();
   }else{
     cerr << "ERROR: Did not recognize scheduler option, exiting\n";
     return 2;
   }
-  */
 
   Workload *work = nullptr;
   if(workload == 0){
@@ -41,7 +37,9 @@ int main(int argc, char **argv){
     work = new RandomWorkload();
   }else{
     // Load workload from file
-    
+    stringstream ss;
+    ss << "workload" << workload << ".txt";
+    work = new FileWorkload(ss.str());
   }
 
   work->init();

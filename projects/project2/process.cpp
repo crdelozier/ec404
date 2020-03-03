@@ -1,9 +1,20 @@
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 #include "process.h"
 
 // The next two methods setup the CPU and I/O bursts for a fake process
 void Process::parseBursts(std::string burstString){
+  std::stringstream ss(burstString);
+  std::string token;
+  int c = 0;
+  
+  while(std::getline(ss,token,',')){
+    bursts.push(Burst((c % 2 == 0) ? BurstType::CPU : BurstType::IO,
+		      stoi(token)));
+    c++;
+  }
+
 
 }
 
@@ -49,7 +60,7 @@ void Process::step(BurstType type, unsigned long time){
   }
 
   if(bursts.empty()){
-    finishedTime = time;
+    finishedTime = time + 1;
   }
 }
 

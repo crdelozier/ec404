@@ -55,3 +55,33 @@ Process* FCFS::chooseProcess(unsigned long time){
   }
   return running;
 }
+
+Process* SJF::chooseProcess(unsigned long time){
+  /*
+   * TODO: This should choose a process based on the 
+   * shortest available job in the ready queue.
+   */
+  
+  return nullptr;
+}
+
+Process* RR::chooseProcess(unsigned long time){
+  /*
+   * TODO: This should choose the first process in the
+   * ready queue and run it for a given quantum.
+   * You should experiment to choose a reasonable quantum
+   * for the workloads provided.
+   */
+  return nullptr;
+}
+
+Process* STRF::chooseProcess(unsigned long time){
+  /*
+   * TODO: This should choose a process based on 
+   * the shortest time remaining.  This algorithm should
+   * interrupt a running process if a shorter one
+   * enters the ready queue.
+   */
+  
+  return nullptr;
+}

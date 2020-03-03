@@ -12,13 +12,28 @@ protected:
 public:
   Scheduler();
   virtual Process* chooseProcess(unsigned long time) = 0;
-  void addToReady(Process *p);
-  void addToWait(Process *p);
-  void handleWaits(unsigned long time);
-  void handleWaiting(Process *p);
+  virtual void addToReady(Process *p);
+  virtual void addToWait(Process *p);
+  virtual void handleWaits(unsigned long time);
+  virtual void handleWaiting(Process *p);
 };
 
 class FCFS : public Scheduler{
 public:
-  virtual Process *chooseProcess(unsigned long time);
+  virtual Process *chooseProcess(unsigned long time) override;
+};
+
+class SJF : public Scheduler{
+public:
+  virtual Process *chooseProcess(unsigned long time) override;
+};
+
+class RR : public Scheduler{
+public:
+  virtual Process *chooseProcess(unsigned long time) override;
+};
+
+class STRF : public Scheduler{
+public:
+  virtual Process *chooseProcess(unsigned long time) override;
 };
