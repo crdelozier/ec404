@@ -53,7 +53,9 @@ int main(int argc, char **argv){
   unsigned long r2 = 0;
   thread t1(sum,&r1,0,values.size()/2);
   thread t2(sum,&r2,(values.size()/2)+1,values.size());
-
+  t1.join();
+  t2.join();
+  
   total = r1+r2;
   
   cout << "Total: " << total << "\n";
