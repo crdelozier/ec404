@@ -1,4 +1,4 @@
-all: count start
+all: count start greet
 
 count: count.cpp mutex.hpp ticket.hpp
 	g++ -o count count.cpp -pthread
@@ -6,5 +6,8 @@ count: count.cpp mutex.hpp ticket.hpp
 start: start.cpp barrier.hpp
 	g++ -o start start.cpp -pthread
 
+greet: greet.cpp
+	g++ -o greet greet.cpp -pthread
+
 clean:
-	rm -f count start
+	rm -f count start greet
