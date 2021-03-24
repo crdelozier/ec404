@@ -64,6 +64,13 @@ void Process::step(BurstType type, unsigned long time){
   }
 }
 
+unsigned long Process::getBurstLength(){
+  if(!bursts.empty()){
+    return bursts.front().length;
+  }
+  return 0;
+}
+
 unsigned long Process::getTurnaroundTime(){
   return finishedTime - arrivalTime;
 }

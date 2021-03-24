@@ -17,9 +17,14 @@ void Workload::run(Scheduler *sched){
 	sched->addToReady(p);
       }
     }
-    Process *p = sched->chooseProcess(time);
+    sched->checkRunningToWaiting();
+    sched->chooseProcess(time);
+    Process *p = sched->getRunning();
     if(p){
       p->step(BurstType::CPU,time);
+      if(p->isDone()){
+	sched->terminate(p);
+      }
     }
     sched->handleWaiting(p);
     sched->handleWaits(time);

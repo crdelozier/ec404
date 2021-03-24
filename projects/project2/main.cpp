@@ -26,6 +26,10 @@ int main(int argc, char **argv){
     sched = new SJF();
   }else if(scheduler.compare("RR") == 0){
     sched = new RR();
+  }else if(scheduler.compare("STRF") == 0){
+    sched = new STRF();
+  }else if(scheduler.compare("Mine") == 0){
+    sched = new Mine();
   }else{
     cerr << "ERROR: Did not recognize scheduler option, exiting\n";
     return 2;

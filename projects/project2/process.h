@@ -25,6 +25,8 @@ public:
   bool hasArrived(unsigned long time);
   void step(BurstType type, unsigned long time);
 
+  unsigned long getBurstLength();
+  
   // stats stuff
   unsigned long getTurnaroundTime();
   unsigned long getWaitingTime();

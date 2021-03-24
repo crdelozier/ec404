@@ -39,49 +39,77 @@ void Scheduler::handleWaiting(Process *p){
   }
 }
 
-Process* FCFS::chooseProcess(unsigned long time){
-  // FCFS ignores time because it's nonpreemptive
-  // Return the process at the front of the ready queue
+void Scheduler::terminate(Process *p){
+  if(p == running){
+    running = nullptr;
+  }else{
+    // Search the ready and waiting queues for p
+    for(auto it = readyQueue.begin(); it != readyQueue.end(); it++){
+      if(*it == p){
+	readyQueue.erase(it);
+	return;
+      }
+    }
+    for(auto it = waitQueue.begin(); it != waitQueue.end(); it++){
+      if(*it == p){
+	waitQueue.erase(it);
+	return;
+      }
+    }
+  }
+}
+
+void Scheduler::contextSwitch(Process *p){
+  if(running != nullptr){
+    // Preempt the current process
+    readyQueue.push_back(running);
+  }
+  running = p;
+}
+
+Process* Scheduler::getRunning(){
+  return running;
+}
+
+void Scheduler::checkRunningToWaiting(){
   if(running != nullptr && running->isWaiting()){
     waitQueue.push_back(running);
     running = nullptr;
   }
-  
-  if(running == nullptr || running->isDone()){
+}
+
+bool Scheduler::needToSchedule(){
+  return (running == nullptr || running->isDone());
+}
+
+void FCFS::chooseProcess(unsigned long time){
+  // If we're not running a process, find a new one
+  if(needToSchedule()){
+    // Check to make sure we have things to schedule
     if(!readyQueue.empty()){
-      running = readyQueue.front();
+      // FCFS gets the first process from the readyQueue
+      contextSwitch(readyQueue.front());
       readyQueue.pop_front();
     }
   }
-  return running;
 }
 
-Process* SJF::chooseProcess(unsigned long time){
+void SJF::chooseProcess(unsigned long time){
+  // TODO: Implement SJF policy
+}
+
+void RR::chooseProcess(unsigned long time){
+  // TODO: Implement RR policy
+}
+
+void STRF::chooseProcess(unsigned long time){
+  // TODO: Implement STRF policy
+}
+
+void Mine::chooseProcess(unsigned long time){
   /*
-   * TODO: This should choose a process based on the 
-   * shortest available job in the ready queue.
+   * TODO: This is your own scheduling algorithm.  Decide
+   * on metrics to use to choose which process to run.
    */
   
-  return nullptr;
-}
-
-Process* RR::chooseProcess(unsigned long time){
-  /*
-   * TODO: This should choose the first process in the
-   * ready queue and run it for a given quantum.
-   * You should experiment to choose a reasonable quantum
-   * for the workloads provided.
-   */
-  return nullptr;
-}
-
-Process* STRF::chooseProcess(unsigned long time){
-  /*
-   * TODO: This should choose a process based on 
-   * the shortest time remaining.  This algorithm should
-   * interrupt a running process if a shorter one
-   * enters the ready queue.
-   */
-  
-  return nullptr;
 }
