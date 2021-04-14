@@ -1,6 +1,7 @@
 #include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
+#include <linux/gcd.h>
 
 /* This function is called when a module is loaded */
 int simple_init(void)

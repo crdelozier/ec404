@@ -5,7 +5,8 @@
 
 void race(int tid, Barrier *barrier){
   std::cout << tid;
-  barrier->wait();
+  count++;
+  while(count != n_threads){}
   std::cout << tid;
 }
 
