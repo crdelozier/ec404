@@ -11,7 +11,9 @@ Mutex lock;
 
 void increment(){
   for(int c = 0; c < ITERS; c++){
+    lock.lock();
     count++;
+    lock.unlock();
   }
 }
 

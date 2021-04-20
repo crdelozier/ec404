@@ -95,11 +95,34 @@ void FCFS::chooseProcess(unsigned long time){
 }
 
 void SJF::chooseProcess(unsigned long time){
-  // TODO: Implement SJF policy
+  if(needToSchedule()){
+    if(!readyQueue.empty()){
+      Process *minProc = readyQueue.front();
+      unsigned long min = minProc->getBurstLength();
+      for(Process *p : readyQueue){
+	if(min > p->getBurstLength()){
+	  minProc = p;
+	  min = p->getBurstLength();
+	}
+      }
+      // Now I know the process with the shortest burst
+      // So, remove it from the queue and schedule it
+      contextSwitch(minProc);
+      readyQueue.remove(minProc);
+    }
+  }
 }
 
 void RR::chooseProcess(unsigned long time){
   // TODO: Implement RR policy
+  static int quantum = 5;
+  quantum--;
+
+  if(quantum == 0){
+    // Schedule a new process
+    
+    quantum = 5;
+  }
 }
 
 void STRF::chooseProcess(unsigned long time){
