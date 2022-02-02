@@ -1,4 +1,4 @@
-obj-m += jiffies.o seconds.o simple.o
+obj-m += advice.o hello.o simple.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
