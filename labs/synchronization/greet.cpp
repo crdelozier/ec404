@@ -14,7 +14,7 @@ condition_variable cond;
 void sayHello(){
   cout << "Hello!  What's your name?\n";
 
-  unique_lock<mutex> l(cond_lock); // cond_lock.lock();
+  unique_lock<mutex> l(cond_lock); // Same as cond_lock.lock();
   if(name.compare("") == 0){
     cond.wait(l); // Go to sleep until another thread wakes me up
   }
@@ -26,7 +26,8 @@ void sayHelloBack(){
   unique_lock<mutex> l(cond_lock);
   cin >> name;
   cout << "Hi!  My name is " << name << "\n";
-  cond.notify_one(); // Wake up one other thread that is waiting on cond
+  // Wake up one other thread that is waiting on cond
+  cond.notify_one();
 }
 
 int main(){

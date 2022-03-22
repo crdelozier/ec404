@@ -1,19 +1,28 @@
+#include <atomic>
 #include <iostream>
 #include <thread>
-
-#include "mutex.hpp"
-#include "ticket.hpp"
 
 #define ITERS 10000000
 
 unsigned long count = 0;
-Mutex lock;
+std::atomic<bool> is_locked;
+
+void acquire_lock(){
+  bool expected = false;
+  while(!is_locked.compare_exchange_strong(expected,true)){
+    expected = false;
+  }
+}
+
+void release_lock(){
+  is_locked = false;
+}
 
 void increment(){
   for(int c = 0; c < ITERS; c++){
-    lock.lock();
+    acquire_lock();
     count++;
-    lock.unlock();
+    release_lock();
   }
 }
 
