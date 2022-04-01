@@ -1,9 +1,0 @@
-Throughput: 3 procs / second
-
-Turnaround Time | Waiting Time
-80 | 45
-66 | 23
-94 | 65
-
-Average Turnaround Time: 80 ms
-Average Waiting Time: 44 ms
