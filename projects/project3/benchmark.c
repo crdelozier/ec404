@@ -1,35 +1,40 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern "C" void* mymalloc(size_t size);
-extern "C" void myfree(void *address);
+extern char* mymalloc(size_t size, int policy);
+extern void myfree(char* address);
 
 int main(int argc, char **argv){
-  if(argc < 2){
-    printf("Usage: %s [iterations]\n",argv[0]);
+  if(argc < 3){
+    printf("Usage: %s [iterations] [policy (1=FIRST, 2=BEST, 3=WORST)]\n",argv[0]);
     return 1;
   }
 
-  int totalAlloc = 0;
+  long totalAlloc = 0;
   int iters = atoi(argv[1]);
-  char *lastAlloc = 0;
-  
+  int policy = atoi(argv[2]);
+
+  char *lastAlloc = NULL;
+
   for(int c = 0; c < iters; c++){
     int allocSize = rand() % 16384;
 
-    if(allocSize < 4 && lastAlloc != NULL){
+    if(((rand() % 2) < 1) && lastAlloc != NULL){
+      // Free ~half of the time
       myfree(lastAlloc);
+      lastAlloc = NULL;
     }else{
-      lastAlloc = (char*)mymalloc(allocSize);
+      lastAlloc = mymalloc(allocSize,policy);
       totalAlloc += allocSize;
-      // Test the memory to ensure that it worked properly
+      
+      // Test that the memory is usable
       for(int i = 0; i < allocSize; i++){
 	lastAlloc[i] = 'a';
       }
     }
   }
 
-  printf("Successfully allocated %d bytes!\n",totalAlloc);
+  printf("Successfully allocated %ld bytes!\n",totalAlloc);
   
   return 0;
 }

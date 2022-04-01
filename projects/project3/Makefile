@@ -1,17 +1,17 @@
-CXXFLAGS=-g
+CFLAGS=-g
 
 all: benchmark.o test.o mymalloc.o
 	g++ -o benchmark benchmark.o mymalloc.o
 	g++ -o test test.o mymalloc.o
 
 test.o: test.c
-	g++ -c test.c $(CXXFLAGS)
+	gcc -c test.c $(CFLAGS)
 
 benchmark.o: benchmark.c
-	g++ -c benchmark.c $(CXXFLAGS)
+	gcc -c benchmark.c $(CFLAGS)
 
 mymalloc.o: mymalloc.cpp
-	g++ -c mymalloc.cpp $(CXXFLAGS)
+	g++ -c mymalloc.cpp $(CFLAGS)
 
 clean:
-	rm -f *.o test benchmark mymalloc.so
+	rm -f *.o test benchmark

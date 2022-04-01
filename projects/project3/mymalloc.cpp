@@ -1,45 +1,48 @@
 #include <list>
 
-#include <stdlib.h>
-#include <sys/mman.h>
-
 using namespace std;
 
-class TwoLevelTable{
-   
-public:
-  TwoLevelTable(){
-    // Constructor, initialize class members
-  }
+const int FIRST_FIT = 1;
+const int BEST_FIT = 2;
+const int WORST_FIT = 3;
 
-  ~TwoLevelTable(){
-    // Destructor, perform any cleanup
-  }
-  
-  void setSize(void*address, size_t size){
-    // TODO: Store the size in the two level table
-  }
-  
-  size_t getSize(void *address){
-    // TODO: Retrieve the size of the allocation
-    // from the two level table
-    return 0;
-  }
-};
-
-struct Block{
+typedef struct block_t{
   size_t size;
-  void *block;
-};
+  char* memory;
+} block;
 
-list<Block> freeBlocks;
+list<block> free_blocks;
 
-extern "C" void *mymalloc(size_t size){
-  // TODO: Replace this with your implementation of malloc
-  return malloc(size);
+char* find_first_fit(size_t size){
+  return NULL;
 }
 
-extern "C" void myfree(void *address){
-  // TODO: Replace this with your implementation of free
-  return free(address);
+char* find_best_fit(size_t size){
+  return NULL;
+}
+
+char* find_worst_fit(size_t size){
+  return NULL;
+}
+
+extern "C" char* mymalloc(size_t size, int policy){
+  char* memory = NULL;
+
+  // First, search for existing blocks of memory
+  if(policy == FIRST_FIT){
+    memory = find_first_fit(size);
+  }else if(policy == BEST_FIT){
+    memory = find_best_fit(size);
+  }else{
+    memory = find_worst_fit(size);
+  }
+
+  // TODO: Allocate new memory if there are no free blocks
+  
+  return memory;
+}
+
+extern "C" void myfree(char* address){
+  // TODO: Return the memory pointed to by address
+  // to the list of free blocks
 }
