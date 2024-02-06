@@ -104,10 +104,12 @@ int main(int argc, char **argv){
   // Note: You can skip fields that don't have a matching variable below
   // Always skip storing the version numbers (though you can verify that you're in the correct place
   // by checking them)
-  char bitFormat;
-  char endianFormat;
-  char ABI;
-  short objectFileType;
+  char bitFormat = binaryData[0x4];
+  char endianFormat = binaryData[0x5];
+  // Skipped EI_VERSION (should be 1 for current version of ELF)
+  char ABI = binaryData[0x7];
+  // Skipped EI_ABIVERSION and EI_PAD
+  short objectFileType = readShort(&binaryData[0x10]);
   short ISA;
   long sectionHeaderStart;
   short sectionHeaderSize;
