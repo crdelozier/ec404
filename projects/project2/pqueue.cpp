@@ -1,6 +1,7 @@
 #include <atomic>
 #include <cstdlib>
 #include <iostream>
+#include <mutex>
 #include <thread>
 #include <unistd.h>
 
@@ -13,6 +14,9 @@ using namespace std;
 
 rcu_list* high_priority;
 rcu_list* low_priority;
+
+std::mutex high_lock;
+std::mutex low_lock;
 
 bool keep_going = true;
 

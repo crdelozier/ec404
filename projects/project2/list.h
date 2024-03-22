@@ -1,11 +1,9 @@
 #pragma once
 
 #include <list>
-#include <mutex>
 
 class rcu_list{
 public:
-  std::mutex lock;
   std::list<int*> priority_list;
   int users;
 };
